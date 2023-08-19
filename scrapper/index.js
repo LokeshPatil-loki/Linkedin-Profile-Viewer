@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import fs from "fs";
+import { getImageUrlByEntityUrn } from "./utils.js";
 dotenv.config();
 
 async function getProfileTopCard(userHandle) {
@@ -38,7 +39,6 @@ async function getProfileTopCard(userHandle) {
       method: "GET",
     }
   );
-  console.log(response.status);
   const responseJSON = await response.json();
   fs.writeFileSync("res.json", JSON.stringify(responseJSON));
   const includedData = responseJSON?.included?.find(
@@ -90,7 +90,7 @@ async function getMidCard(userHandle, authorProfileId) {
   return getAbout(responseJSON);
 }
 
-async function getExpriences(userHandle,authorProfileId) {
+async function getExpriences(userHandle, authorProfileId) {
   const response = await fetch(
     `https://www.linkedin.com/voyager/api/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A${authorProfileId},sectionType:experience,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.5a1bb3fa1a6ecd38a0334ee28284805a`,
     {
@@ -127,6 +127,7 @@ async function getExpriences(userHandle,authorProfileId) {
     const certificates = [];
     let skills = [];
     let description = "";
+    let image = entityComponent?.image?.attributes?.[0].detailData["*companyLogo"];
     entityComponent?.subComponents?.components?.forEach((item) => {
       const fixedComponentsList = item?.components?.fixedListComponent?.components;
       fixedComponentsList?.forEach((fixedComponent) => {
@@ -152,13 +153,15 @@ async function getExpriences(userHandle,authorProfileId) {
       });
     });
 
+    image = getImageUrlByEntityUrn(responseJSON, image);
+
     const experience = {
       title: entityComponent?.titleV2?.text?.text,
       subtitle: entityComponent?.subtitle?.text,
       duration: entityComponent?.caption?.text,
       description,
       skills,
-      image: entityComponent?.image?.attributes?.[0].detailData["*companyLogo"],
+      image,
       certificates,
     };
 
@@ -167,15 +170,79 @@ async function getExpriences(userHandle,authorProfileId) {
   return experiences;
 }
 
+async function getEducation(userHandle, authorProfileId) {
+  const response = await fetch(
+    `https://www.linkedin.com/voyager/api/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A${authorProfileId},sectionType:education,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.5a1bb3fa1a6ecd38a0334ee28284805a`,
+    {
+      headers: {
+        accept: "application/vnd.linkedin.normalized+json+2.1",
+        "accept-language": "en-US,en;q=0.9",
+        "csrf-token": "ajax:0339146501893923207",
+        "sec-ch-ua": '"Chromium";v="113", "Not-A.Brand";v="24"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Linux"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        cookie: process.env.COOKIE,
+        Referer: `https://www.linkedin.com/in/${userHandle}/details/education/`,
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      },
+      body: null,
+      method: "GET",
+    }
+  );
+  const responseJSON = await response.json();
+  const elements = responseJSON?.included[0].components?.elements;
+  const education = [];
+
+  elements?.forEach((element) => {
+    const entityComponent = element.components?.entityComponent;
+    const subComponents = entityComponent?.subComponents.components;
+    const title = entityComponent?.titleV2?.text?.text;
+    const degree = entityComponent?.subtitle?.text;
+    const duration = entityComponent?.caption?.text;
+    let image = entityComponent?.image?.attributes?.[0]?.detailData?.["*companyLogo"];
+    let grade = "";
+    let description = "";
+
+    subComponents?.forEach((subComponent) => {
+      const insightComponent = subComponent?.components?.insightComponent;
+      const text = insightComponent?.text?.text?.text;
+      if (text) {
+        if (text.toLowerCase().includes("grade:")) {
+          grade = text.split("Grade: ")[1];
+        } else {
+          description = text;
+        }
+      }
+    });
+
+    image = getImageUrlByEntityUrn(responseJSON , image);
+    education.push({
+      title,
+      image,
+      degree,
+      duration,
+      grade,
+      description,
+    });
+  });
+
+  return education;
+}
+
 try {
-  const userHandle = "prajakta-sangolkar-a75271248";
+  const userHandle = "priya-saw-875476209";
   const profileTopCard = await getProfileTopCard(userHandle);
   const about = await getMidCard(userHandle, profileTopCard.authorProfileId);
   const experiences = await getExpriences(userHandle, profileTopCard.authorProfileId);
+  const education = await getEducation(userHandle,profileTopCard.authorProfileId);
   const profile = {
     ...profileTopCard,
     about,
-    experiences
+    experiences,
+    education
   };
   console.log(profile);
 } catch (err) {
