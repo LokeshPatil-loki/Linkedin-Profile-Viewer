@@ -60,7 +60,7 @@ async function getProfileTopCard(userHandle) {
 
 function getAbout(json) {
   const aboutComponent = json?.included?.find((item) => item.entityUrn?.includes("ABOUT"));
-  return aboutComponent?.topComponents?.[1].components?.textComponent?.text?.text;
+  return aboutComponent?.topComponents?.[1]?.components?.textComponent?.text?.text;
 }
 
 async function getMidCard(userHandle, authorProfileId) {
@@ -127,12 +127,12 @@ async function getExpriences(userHandle,authorProfileId) {
     const certificates = [];
     let skills = [];
     let description = "";
-    entityComponent.subComponents.components.forEach((item) => {
+    entityComponent?.subComponents?.components?.forEach((item) => {
       const fixedComponentsList = item?.components?.fixedListComponent?.components;
       fixedComponentsList?.forEach((fixedComponent) => {
         const text = fixedComponent?.components?.textComponent?.text?.text;
         if (text?.toLowerCase().includes("skills")) {
-          const skillList = text.split("Skills: ")[1].split(" · ");
+          const skillList = text.split("Skills: ")?.[1]?.split(" · ");
           skills = skillList;
         } else {
           description = text;
@@ -161,13 +161,14 @@ async function getExpriences(userHandle,authorProfileId) {
       image: entityComponent?.image?.attributes?.[0].detailData["*companyLogo"],
       certificates,
     };
+
     experiences.push(experience);
   });
   return experiences;
 }
 
 try {
-  const userHandle = "priya-saw-875476209";
+  const userHandle = "prajakta-sangolkar-a75271248";
   const profileTopCard = await getProfileTopCard(userHandle);
   const about = await getMidCard(userHandle, profileTopCard.authorProfileId);
   const experiences = await getExpriences(userHandle, profileTopCard.authorProfileId);
