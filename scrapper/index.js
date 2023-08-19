@@ -90,7 +90,7 @@ async function getMidCard(userHandle, authorProfileId) {
   return getAbout(responseJSON);
 }
 
-async function getExpriences() {
+async function getExpriences(userHandle,authorProfileId) {
   const response = await fetch(
     `https://www.linkedin.com/voyager/api/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A${authorProfileId},sectionType:experience,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.5a1bb3fa1a6ecd38a0334ee28284805a`,
     {
@@ -110,7 +110,7 @@ async function getExpriences() {
         "x-li-track":
           '{"clientVersion":"1.13.1618","mpVersion":"1.13.1618","osName":"web","timezoneOffset":5.5,"timezone":"Asia/Calcutta","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1,"displayWidth":1366,"displayHeight":768}',
         "x-restli-protocol-version": "2.0.0",
-        cookie: env.process.COOKIE,
+        cookie: process.env.COOKIE,
         Referer: `https://www.linkedin.com/in/${userHandle}/details/experience/`,
         "Referrer-Policy": "strict-origin-when-cross-origin",
       },
@@ -118,14 +118,65 @@ async function getExpriences() {
       method: "GET",
     }
   );
+
+  const responseJSON = await response.json();
+  const elements = responseJSON?.included[0].components?.elements;
+  const experiences = [];
+  elements.forEach((element) => {
+    const entityComponent = element.components?.entityComponent;
+    const certificates = [];
+    let skills = [];
+    let description = "";
+    entityComponent.subComponents.components.forEach((item) => {
+      const fixedComponentsList = item?.components?.fixedListComponent?.components;
+      fixedComponentsList?.forEach((fixedComponent) => {
+        const text = fixedComponent?.components?.textComponent?.text?.text;
+        if (text?.toLowerCase().includes("skills")) {
+          const skillList = text.split("Skills: ")[1].split(" · ");
+          skills = skillList;
+        } else {
+          description = text;
+        }
+        const mediaComponent = fixedComponent?.components?.mediaComponent;
+        if (mediaComponent) {
+          const entityImage = mediaComponent?.thumbnail?.entityImage;
+          const fileIdentifyingUrlPathSegment =
+            entityImage?.artifacts?.[0].fileIdentifyingUrlPathSegment;
+          const rootUrl = entityImage?.rootUrl;
+          const text = mediaComponent?.titleV2?.text?.text;
+          if (fileIdentifyingUrlPathSegment && rootUrl) {
+            const certificateUrl = rootUrl + fileIdentifyingUrlPathSegment;
+            certificates.push({ name: text, url: certificateUrl });
+          }
+        }
+      });
+    });
+
+    const experience = {
+      title: entityComponent?.titleV2?.text?.text,
+      subtitle: entityComponent?.subtitle?.text,
+      duration: entityComponent?.caption?.text,
+      description,
+      skills,
+      image: entityComponent?.image?.attributes?.[0].detailData["*companyLogo"],
+      certificates,
+    };
+    experiences.push(experience);
+  });
+  return experiences;
 }
 
 try {
   const userHandle = "priya-saw-875476209";
   const profileTopCard = await getProfileTopCard(userHandle);
-  console.log(profileTopCard);
   const about = await getMidCard(userHandle, profileTopCard.authorProfileId);
-  console.log(about);
+  const experiences = await getExpriences(userHandle, profileTopCard.authorProfileId);
+  const profile = {
+    ...profileTopCard,
+    about,
+    experiences
+  };
+  console.log(profile);
 } catch (err) {
   console.log(err);
 }
