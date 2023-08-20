@@ -438,6 +438,7 @@ try {
   };
   // console.log(skills)
   console.log(profile);
+  fs.writeFileSync("profile.json",JSON.stringify(profile,null,2));
   // console.log(JSON.stringify(skills,null,2));
 } catch (err) {
   console.log(err);
