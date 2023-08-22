@@ -4,6 +4,7 @@ const elements = json?.included[0].components?.elements;
 
 elements.forEach(element => {
     const entityComponent = element.components?.entityComponent;
+    let image = entityComponent?.image?.attributes?.[0]?.detailData?.["*companyLogo"];
     const certificates = [];
     let skills = [];
     let description = "";
