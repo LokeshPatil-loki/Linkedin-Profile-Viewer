@@ -11,9 +11,8 @@ import {getSkills} from "./profile/skills.js";
 import {getPosts} from "./profile/posts.js";
 
 
-export async function getProfile(url){
+export async function getProfile(userHandle){
   try {
-    const userHandle = url.split("/in/")[1];
     const profileTopCard = await getProfileTopCard(userHandle);
     const about = await getMidCard(userHandle, profileTopCard.authorProfileId);
     const experiences = await getExpriences(userHandle, profileTopCard.authorProfileId);
