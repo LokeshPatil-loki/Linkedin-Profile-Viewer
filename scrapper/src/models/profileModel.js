@@ -62,7 +62,7 @@ const profileSchema = new Schema({
         skills: [skillSchema]
     },
     posts: [postSchema]
-});
+},{timestamps: true});
 
 const Profile = model('Profile', profileSchema);
 
