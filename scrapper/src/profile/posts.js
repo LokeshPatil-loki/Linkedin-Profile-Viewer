@@ -50,12 +50,12 @@ dotenv.config();
     }
 
     const post = {
-      dashEntityUrn,
-      description,
-      pastActivityOn,
-      images,
-      videos,
-      likes
+      dashEntityUrn: dashEntityUrn ?? null,
+      description: description ?? null,
+      pastActivityOn: pastActivityOn ?? null,
+      images: images ?? [],
+      videos: videos ?? [],
+      likes: likes ?? 0
     };
     posts.push(post)
   })

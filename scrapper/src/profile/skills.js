@@ -63,6 +63,6 @@ function extractSkillsFromJSON(json) {
       }
   
     }
-    return { totalCount, skills };
+    return { totalCount: totalCount ?? 0, skills: skills ?? [] };
   }
   

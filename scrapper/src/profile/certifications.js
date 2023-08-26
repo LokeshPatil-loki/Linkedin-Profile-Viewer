@@ -54,12 +54,12 @@ export async function getCertifications(userHandle, authorProfileId) {
     });
     image = getImageUrlByEntityUrn(responseJSON, image);
     const certification = {
-      title,
-      credentialID,
-      image,
-      issueDate,
-      certificate,
-      skills,
+      title: title ?? null,
+      credentialID: credentialID ?? null,
+      image: image ?? image,
+      issueDate: issueDate ?? null,
+      certificate: certificate ?? null,
+      skills: skills ?? [],
     };
     certifications.push(certification);
   });
