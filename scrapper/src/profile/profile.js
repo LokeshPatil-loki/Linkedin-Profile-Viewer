@@ -6,7 +6,6 @@ import { getCertifications } from "./certifications.js";
 import {getSkills} from "./skills.js";
 import {getPosts} from "./posts.js";
 
-
 export default async function getProfile(userHandle){
   try {
     const profileTopCard = await getProfileTopCard(userHandle);
