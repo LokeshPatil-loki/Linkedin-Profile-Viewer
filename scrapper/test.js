@@ -9,4 +9,3 @@ import fs from "fs";
     fs.writeFileSync(`out/${userHandle}.json`,JSON.stringify(profile));
     console.log(profile);
 })();
-

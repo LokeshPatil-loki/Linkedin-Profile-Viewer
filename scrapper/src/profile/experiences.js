@@ -59,7 +59,7 @@ export async function getExpriences(userHandle, authorProfileId) {
             const text = mediaComponent?.titleV2?.text?.text;
             if (fileIdentifyingUrlPathSegment && rootUrl) {
               const certificateUrl = rootUrl + fileIdentifyingUrlPathSegment;
-              certificates.push({ name: text, url: certificateUrl });
+              certificates.push({ name: text, url: certificateUrl ?? null });
             }
           }
         });
@@ -68,13 +68,13 @@ export async function getExpriences(userHandle, authorProfileId) {
       image = getImageUrlByEntityUrn(responseJSON, image);
   
       const experience = {
-        title: entityComponent?.titleV2?.text?.text,
-        subtitle: entityComponent?.subtitle?.text,
-        duration: entityComponent?.caption?.text,
-        description,
-        skills,
-        image,
-        certificates,
+        title: entityComponent?.titleV2?.text?.text ?? null,
+        subtitle: entityComponent?.subtitle?.text ?? null,
+        duration: entityComponent?.caption?.text ?? null,
+        description: description ?? null,
+        skills: skills ?? [],
+        image: image ?? [],
+        certificates: certificates ?? [],
       };
   
       experiences.push(experience);

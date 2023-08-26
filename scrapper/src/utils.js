@@ -10,3 +10,7 @@ export function getImageUrlByEntityUrn(json,entityUrn){
     }
 }
 
+export function getUserHandle(url){
+    return url?.split("https://www.linkedin.com/in/")?.[1]?.replace("/","") ?? null;
+}
+
