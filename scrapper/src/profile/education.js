@@ -57,7 +57,7 @@ export async function getEducation(userHandle, authorProfileId) {
       degree: degree ?? null,
       duration: duration ?? null,
       grade: grade ?? null,
-      description: description ?? description,
+      description: description ?? null,
     });
   });
 
