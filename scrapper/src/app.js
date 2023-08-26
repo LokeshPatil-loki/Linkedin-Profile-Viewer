@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import { getUserHandle } from "./utils.js";
 import { NotFoundError } from "./errors/NotFoundError.js";
@@ -8,9 +7,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import { CustomError } from "./errors/CustomError.js";
 import { profileRoutes } from "./routes/profileRoutes.js";
 
-dotenv.config();
 
-const PORT = 4000;
 const app = express();
 app.use(express.json());
 app.use(cors());
