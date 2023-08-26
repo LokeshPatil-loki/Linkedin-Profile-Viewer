@@ -51,8 +51,3 @@ export async function getProfileTopCard(userHandle) {
   };
   return ProfileTopCard;
 }
-
-function getAbout(json) {
-  const aboutComponent = json?.included?.find((item) => item.entityUrn?.includes("ABOUT"));
-  return aboutComponent?.topComponents?.[1]?.components?.textComponent?.text?.text;
-}

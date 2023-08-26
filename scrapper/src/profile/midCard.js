@@ -3,7 +3,7 @@ dotenv.config();
 
 function getAbout(json) {
   const aboutComponent = json?.included?.find((item) => item.entityUrn?.includes("ABOUT"));
-  return aboutComponent?.topComponents?.[1]?.components?.textComponent?.text?.text;
+  return aboutComponent?.topComponents?.[1]?.components?.textComponent?.text?.text ?? null;
 }
 
 export async function getMidCard(userHandle, authorProfileId) {
