@@ -6,7 +6,7 @@ const errorHandler = (err, req,res, next) => {
         res.status(err.statusCode).json({ errors: err.serializeError() });
     }else if(err instanceof Error){
          res.status(400).json({
-            message: [{ message: err.message }],
+            message: "Server Error",
         });
     }
 }
