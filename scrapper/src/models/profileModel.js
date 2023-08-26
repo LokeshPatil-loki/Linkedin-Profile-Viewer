@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const experienceSchema = new mongoose.Schema({
+const experienceSchema = new Schema({
     title: String,
     subtitle: String,
     duration: String,
@@ -13,7 +13,7 @@ const experienceSchema = new mongoose.Schema({
     }]
 });
 
-const educationSchema = new mongoose.Schema({
+const educationSchema = new Schema({
     title: String,
     image: String,
     degree: String,
@@ -22,7 +22,7 @@ const educationSchema = new mongoose.Schema({
     description: String
 });
 
-const certificationSchema = new mongoose.Schema({
+const certificationSchema = new Schema({
     title: String,
     credentialID: String,
     issueDate: String,
@@ -30,14 +30,14 @@ const certificationSchema = new mongoose.Schema({
     skills: [String]
 });
 
-const skillSchema = new mongoose.Schema({
+const skillSchema = new Schema({
     title: String,
     appliedIn: [{
         name: String
     }]
 });
 
-const postSchema = new mongoose.Schema({
+const postSchema = new Schema({
     dashEntityUrn: String,
     description: String,
     pastActivityOn: String,
@@ -46,7 +46,7 @@ const postSchema = new mongoose.Schema({
     likes: Number
 });
 
-const profileSchema = new mongoose.Schema({
+const profileSchema = new Schema({
     firstName: String,
     lastName: String,
     headline: String,
@@ -64,6 +64,6 @@ const profileSchema = new mongoose.Schema({
     posts: [postSchema]
 });
 
-const Profile = mongoose.model('Profile', profileSchema);
+const Profile = model('Profile', profileSchema);
 
-export {Profile};
+export default Profile;
