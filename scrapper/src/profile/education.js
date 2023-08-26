@@ -52,12 +52,12 @@ export async function getEducation(userHandle, authorProfileId) {
 
     image = getImageUrlByEntityUrn(responseJSON, image);
     education.push({
-      title,
-      image,
-      degree,
-      duration,
-      grade,
-      description,
+      title: title ?? null,
+      image: image ?? null,
+      degree: degree ?? null,
+      duration: duration ?? null,
+      grade: grade ?? null,
+      description: description ?? description,
     });
   });
 
