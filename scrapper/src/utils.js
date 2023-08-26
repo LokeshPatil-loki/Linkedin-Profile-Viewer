@@ -14,3 +14,9 @@ export function getUserHandle(url){
     return url?.split("https://www.linkedin.com/in/")?.[1]?.replace("/","") ?? null;
 }
 
+export function getHourDifference(date1,date2){
+    const timeDifference = Math.abs(date2 - date1);
+
+    const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+}
