@@ -131,52 +131,52 @@ The response will contain the profile information of the requested user
 ```
 ### Response Attributes:
 
-- `profile` (object): User profile information
-  - `_id` (string): Document ID
-  - `firstName` (string): User's first name
-  - `lastName` (string): User's last name
-  - `headline` (string): User's professional headline
-  - `publicIdentifier` (string): User's public identifier
-  - `url` (string): User's LinkedIn profile URL
-  - `authorProfileId` (string): Author profile ID
-  - `about` (string or null): User's about section
-  - `skills` (object):
-    - `totalCount` (number): Total count of skills
-    - `skills` (array):
-      - `title` (string): Skill title
-      - `appliedIn` (array of objects):
-        - `name` (string): Name where skill was applied
-  - `experiences` (array of objects):
-    - `title` (string): Experience title
-    - `subtitle` (string): Experience subtitle
-    - `duration` (string): Experience duration
-    - `description` (string or null): Experience description
-    - `skills` (array of strings): Relevant skills for the experience
-    - `image` (array of strings): Experience images
-    - `certificates` (array of objects):
-      - `name` (string): Certificate name
-      - `url` (string): Certificate URL
-  - `education` (array of objects):
-    - `title` (string): Education institution title
-    - `image` (string): Education institution image
-    - `degree` (string): Degree obtained
-    - `duration` (string): Education duration
-    - `grade` (string): Grade obtained
-    - `description` (string): Education description
-  - `certifications` (array of objects):
-    - `title` (string): Certification title
-    - `credentialID` (string or null): Credential ID
-    - `issueDate` (string or null): Issue date of the certification
-    - `certificate` (string): Certification URL
-    - `skills` (array of strings): Skills related to the certification
-  - `posts` (array of objects):
-    - `dashEntityUrn` (string): Entity urn of the post
-    - `description` (string): Post description
-    - `pastActivityOn` (string): Time since the post was active
-    - `images` (array of strings): Post images
-    - `videos` (array of strings): Post videos
-    - `likes` (number): Number of likes on the post
-  - `createdAt` (string): Timestamp of profile creation (ISO 8601 date)
-  - `updatedAt` (string): Timestamp of last profile update (ISO 8601 date)
-  - `__v` (number): Version of the profile data
+- **profile** (object): User profile information
+  - **_id** (string): Document ID
+  - **firstName** (string): User's first name
+  - **lastName** (string): User's last name
+  - **headline** (string): User's professional headline
+  - **publicIdentifier** (string): User's public identifier
+  - **url** (string): User's LinkedIn profile URL
+  - **authorProfileId** (string): Author profile ID
+  - **about** (string or null): User's about section
+  - **skills** (object):
+    - **totalCount** (number): Total count of skills
+    - **skills** (array):
+      - **title** (string): Skill title
+      - **appliedIn** (array of objects):
+        - **name** (string): Name where skill was applied
+  - **experiences** (array of objects):
+    - **title** (string): Experience title
+    - **subtitle** (string): Experience subtitle
+    - **duration** (string): Experience duration
+    - **description** (string or null): Experience description
+    - **skills** (array of strings): Relevant skills for the experience
+    - **image** (array of strings): Experience images
+    - **certificates** (array of objects):
+      - **name** (string): Certificate name
+      - **url** (string): Certificate URL
+  - **education** (array of objects):
+    - **title** (string): Education institution title
+    - **image** (string): Education institution image
+    - **degree** (string): Degree obtained
+    - **duration** (string): Education duration
+    - **grade** (string): Grade obtained
+    - **description** (string): Education description
+  - **certifications** (array of objects):
+    - **title** (string): Certification title
+    - **credentialID** (string or null): Credential ID
+    - **issueDate** (string or null): Issue date of the certification
+    - **certificate** (string): Certification URL
+    - **skills** (array of strings): Skills related to the certification
+  - **posts** (array of objects):
+    - **dashEntityUrn** (string): Entity urn of the post
+    - **description** (string): Post description
+    - **pastActivityOn** (string): Time since the post was active
+    - **images** (array of strings): Post images
+    - **videos** (array of strings): Post videos
+    - **likes** (number): Number of likes on the post
+  - **createdAt** (string): Timestamp of profile creation (ISO 8601 date)
+  - **updatedAt** (string): Timestamp of last profile update (ISO 8601 date)
+  - **__v** (number): Version of the profile data
 
