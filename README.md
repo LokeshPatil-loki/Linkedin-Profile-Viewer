@@ -1,4 +1,19 @@
 # Linkedin-Profile-Viewer - Scrapper
+🔍 Introducing My LinkedIn Profile Data Scraper API! 🚀
+
+Have you ever wanted to access LinkedIn profile data without notifying the user? Look no further! I've developed an API that allows you to scrape LinkedIn profile data in JSON format, all while ensuring the user remains unaware.
+
+🔗 **How It Works:**
+By utilizing the userHandle or URL, you can effortlessly retrieve LinkedIn profile data in JSON format. The best part? The user won't receive any notifications.
+
+🍪 **LinkedIn Cookies Required:**
+To set up this API, you'll need your LinkedIn cookies: li_at and JSESSIONID. These cookies are essential for seamless integration and data retrieval.
+
+🚀 **Key Features:**
+    - **Stealthy Data Retrieval:** Access LinkedIn profile data without raising any suspicion.
+    - **Cookie-based Setup:** Use your li_at and JSESSIONID cookies to seamlessly set up the API.
+    - **Effortless Integration:** Incorporate the API into your projects for smooth data extraction.
+
 ## Environment Variables
 *NOTE: For development create `.env` file* 
 ```
