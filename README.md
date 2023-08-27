@@ -10,9 +10,9 @@ By utilizing the userHandle or URL, you can effortlessly retrieve LinkedIn profi
 To set up this API, you'll need your LinkedIn cookies: li_at and JSESSIONID. These cookies are essential for seamless integration and data retrieval.
 
 🚀 **Key Features:**
-    - **Stealthy Data Retrieval:** Access LinkedIn profile data without raising any suspicion.
-    - **Cookie-based Setup:** Use your li_at and JSESSIONID cookies to seamlessly set up the API.
-    - **Effortless Integration:** Incorporate the API into your projects for smooth data extraction.
+  - **Stealthy Data Retrieval:** Access LinkedIn profile data without raising any suspicion.
+  - **Cookie-based Setup:** Use your li_at and JSESSIONID cookies to seamlessly set up the API.
+  - **Effortless Integration:** Incorporate the API into your projects for smooth data extraction.
 
 ## Environment Variables
 *NOTE: For development create `.env` file* 
