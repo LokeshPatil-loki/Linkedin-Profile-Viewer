@@ -46,6 +46,13 @@ const postSchema = new Schema({
     likes: Number
 });
 
+const projectSchema = new Schema({
+    title: String,
+    duration: String,
+    project_link: String,
+    description: String,
+});
+
 const profileSchema = new Schema({
     firstName: String,
     lastName: String,
@@ -61,7 +68,8 @@ const profileSchema = new Schema({
         totalCount: Number,
         skills: [skillSchema]
     },
-    posts: [postSchema]
+    posts: [postSchema],
+    projects: [projectSchema]
 },{timestamps: true});
 
 const Profile = model('Profile', profileSchema);
