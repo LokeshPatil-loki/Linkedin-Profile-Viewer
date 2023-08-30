@@ -5,6 +5,7 @@ import { getEducation } from "./education.js";
 import { getCertifications } from "./certifications.js";
 import {getSkills} from "./skills.js";
 import {getPosts} from "./posts.js";
+import { getProjects } from "./projects.js";
 
 export default async function getProfile(userHandle){
   try {
@@ -15,6 +16,7 @@ export default async function getProfile(userHandle){
     const certifications = await getCertifications(userHandle, profileTopCard.authorProfileId);
     const skills = await getSkills(userHandle, profileTopCard.authorProfileId);
     const posts = await getPosts(userHandle,profileTopCard.authorProfileId);
+    const projects = await getProjects(userHandle,profileTopCard.authorProfileId);
     const profile = {
       ...profileTopCard,
       about,
@@ -22,8 +24,10 @@ export default async function getProfile(userHandle){
       education,
       certifications,
       skills,
-      posts
+      posts,
+      projects
     };
+    console.log(profile.projects);
     return profile;
   } catch (err) {
     console.log(err);
