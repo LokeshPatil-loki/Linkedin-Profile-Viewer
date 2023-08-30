@@ -30,7 +30,7 @@ export async function getEducation(userHandle, authorProfileId) {
 
   elements?.forEach((element) => {
     const entityComponent = element.components?.entityComponent;
-    const subComponents = entityComponent?.subComponents.components;
+    const subComponents = entityComponent?.subComponents?.components;
     const title = entityComponent?.titleV2?.text?.text;
     const degree = entityComponent?.subtitle?.text;
     const duration = entityComponent?.caption?.text;
@@ -49,7 +49,14 @@ export async function getEducation(userHandle, authorProfileId) {
         }
       }
     });
-
+    console.log({
+      title: title ?? null,
+      image: image ?? null,
+      degree: degree ?? null,
+      duration: duration ?? null,
+      grade: grade ?? null,
+      description: description ?? null,
+    })
     image = getImageUrlByEntityUrn(responseJSON, image);
     education.push({
       title: title ?? null,
