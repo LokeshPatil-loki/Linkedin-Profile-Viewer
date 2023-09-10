@@ -38,7 +38,10 @@ const skillSchema = new Schema({
 });
 
 const postSchema = new Schema({
+    type: String,
+    postIdentifier: String,
     dashEntityUrn: String,
+    numComments: Number,
     description: String,
     pastActivityOn: String,
     images: [String],
@@ -70,7 +73,7 @@ const profileSchema = new Schema({
     },
     posts: [postSchema],
     projects: [projectSchema]
-},{timestamps: true});
+}, { timestamps: true });
 
 const Profile = model('Profile', profileSchema);
 

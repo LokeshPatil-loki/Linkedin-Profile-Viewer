@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 dotenv.config();
 
- export async function getPosts(userHandle, authorProfileId, start = 0, count = 20) {
+export async function getPosts(userHandle, authorProfileId, start = 0, count = 20) {
   const response = await fetch(`https://www.linkedin.com/voyager/api/identity/profileUpdatesV2?count=${count}&includeLongTermHistory=true&moduleKey=creator_profile_all_content_view%3Adesktop&numComments=0&profileUrn=urn%3Ali%3Afsd_profile%3A${authorProfileId}&q=memberShareFeed&start=${start}`, {
     "headers": {
       "accept": "application/vnd.linkedin.normalized+json+2.1",
@@ -22,17 +22,21 @@ dotenv.config();
     "method": "GET"
   });
   const responseJSON = await response.json();
+  // fs.writeFileSync("./post.json", JSON.stringify(responseJSON));
   const included = responseJSON?.included;
 
   const posts = [];
   const postElements = included?.filter(item => "commentary" in item);
-
   postElements?.forEach(postElement => {
     let description = postElement?.commentary?.text?.text;
     let pastActivityOn = postElement?.actor?.subDescription?.text;
+    let socialDetail = postElement?.["*socialDetail"].split(":");
+    console.log(socialDetail)
     const dashEntityUrn = postElement?.updateMetadata?.urn;
     const videoPlayMetadata = postElement?.content?.["*videoPlayMetadata"];
-    const likes = responseJSON?.included?.find(element => element?.dashEntityUrn?.includes(dashEntityUrn) && "likes" in element)?.likes?.paging?.total;
+    const socialDetailEntity = responseJSON?.included?.find(element => element?.socialDetailEntityUrn?.includes(socialDetail[6]));
+    const likes = socialDetailEntity?.numLikes;
+    const numComments = socialDetailEntity?.numComments;
     const videos = [];
     let images = [];
     postElement?.content?.images?.forEach(element => {
@@ -50,12 +54,15 @@ dotenv.config();
     }
 
     const post = {
+      type: socialDetail[5] ?? null,
+      postIdentifier: socialDetail[6] ?? null,
       dashEntityUrn: dashEntityUrn ?? null,
+      likes: likes ?? 0,
+      numComments: numComments ?? 0,
       description: description ?? null,
       pastActivityOn: pastActivityOn ?? null,
       images: images ?? [],
       videos: videos ?? [],
-      likes: likes ?? 0
     };
     posts.push(post)
   })
