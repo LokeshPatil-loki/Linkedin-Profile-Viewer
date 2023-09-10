@@ -49,14 +49,6 @@ export async function getEducation(userHandle, authorProfileId) {
         }
       }
     });
-    console.log({
-      title: title ?? null,
-      image: image ?? null,
-      degree: degree ?? null,
-      duration: duration ?? null,
-      grade: grade ?? null,
-      description: description ?? null,
-    })
     image = getImageUrlByEntityUrn(responseJSON, image);
     education.push({
       title: title ?? null,
