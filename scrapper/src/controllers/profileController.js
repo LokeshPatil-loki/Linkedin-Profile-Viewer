@@ -20,7 +20,7 @@ const getSingleProfile = async (req, res, next) => {
         }
         let documentExists = false;
         let profile = null;
-        
+
         // Find profile document by it's userHandle / publicIdentifier from database
         let profileDoc = await ProfileModel.findOne({ publicIdentifier: userHandle });
 
@@ -37,11 +37,11 @@ const getSingleProfile = async (req, res, next) => {
             // Then scrape latest profile from linkedin and update document for that profile in mongodb
             if (timeDifference > 12) {
                 profile = await getProfile(profileIdentifier) ?? null;
-                if(profile){
-                    let update = await ProfileModel.updateOne({_id: profileDoc._id},{...profile});
+                if (profile) {
+                    let update = await ProfileModel.updateOne({ _id: profileDoc._id }, { ...profile });
                     console.log("update");
                     console.log(update)
-                } 
+                }
             }
         }
 
@@ -52,7 +52,7 @@ const getSingleProfile = async (req, res, next) => {
                 profile = await ProfileModel.create(profile);
                 console.log("new")
             }
-        }else{
+        } else {
             console.log("profile document exists");
             profile = profileDoc;
         }
