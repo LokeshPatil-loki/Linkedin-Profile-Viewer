@@ -40,7 +40,7 @@ export async function getProjects(userHandle, authorProfileId) {
 
 
     const project_link = projectComponent?.components?.actionComponent?.action?.navigationAction?.actionTarget;
-    const description = descriptionComponent.components?.fixedListComponent?.components?.[0].components?.textComponent?.text?.text;
+    const description = descriptionComponent?.components?.fixedListComponent?.components?.[0].components?.textComponent?.text?.text;
 
     projects.push({
       title: title ?? null,
