@@ -46,7 +46,17 @@ const postSchema = new Schema({
     pastActivityOn: String,
     images: [String],
     videos: [String],
-    likes: Number
+    likes: Number,
+    comments: [
+        {
+            commenter: {
+                name: String,
+                profilePicture: String
+            },
+            text: String,
+            timestamp: String
+        }
+    ]
 });
 
 const projectSchema = new Schema({
