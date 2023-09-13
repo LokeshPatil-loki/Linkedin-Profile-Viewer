@@ -24,7 +24,7 @@ export async function getComments(userHandle, postId, typeOfPost, count, numRepl
         const vectorImage = commentItem?.commenter?.image?.attributes?.[0]?.detailData?.nonEntityProfilePicture?.vectorImage;
         const artifacts = vectorImage?.artifacts;
         const commenterName = commentItem?.commenter?.title?.text;
-        const commenterProfilePicture = vectorImage?.rootUrl + artifacts[artifacts.length - 1]?.fileIdentifyingUrlPathSegment
+        const commenterProfilePicture = vectorImage?.rootUrl + artifacts?.[artifacts.length - 1]?.fileIdentifyingUrlPathSegment
         const comment = commentItem?.commentary?.text;
         const createdAt = commentItem?.createdAt;
         comments.push({
