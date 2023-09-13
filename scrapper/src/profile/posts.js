@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import fs from "fs";
+import { getComments } from "./comments.js";
 dotenv.config();
 
 export async function getPosts(userHandle, authorProfileId, start = 0, count = 20) {
@@ -27,7 +28,7 @@ export async function getPosts(userHandle, authorProfileId, start = 0, count = 2
 
   const posts = [];
   const postElements = included?.filter(item => "commentary" in item);
-  postElements?.forEach(postElement => {
+  postElements?.forEach(async (postElement) => {
     let description = postElement?.commentary?.text?.text;
     let pastActivityOn = postElement?.actor?.subDescription?.text;
     let socialDetail = postElement?.["*socialDetail"].split(":");
@@ -53,6 +54,8 @@ export async function getPosts(userHandle, authorProfileId, start = 0, count = 2
       }
     }
 
+    const comments = await getComments(userHandle,socialDetail[6],socialDetail[5],numComments,1);
+
     const post = {
       type: socialDetail[5] ?? null,
       postIdentifier: socialDetail[6] ?? null,
@@ -63,6 +66,7 @@ export async function getPosts(userHandle, authorProfileId, start = 0, count = 2
       pastActivityOn: pastActivityOn ?? null,
       images: images ?? [],
       videos: videos ?? [],
+      comments: comments ?? []
     };
     posts.push(post)
   })
