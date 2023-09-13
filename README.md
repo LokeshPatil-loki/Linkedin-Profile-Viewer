@@ -26,7 +26,8 @@ PORT = 4000
 - <JSESSIONID>: Replace with `JSESSIONID` cookie of LinkedIn
 - `MONGO_URI`: Mongodb Connection String
 
-<img src="https://github.com/alumnit-bvcoenm-581b2a24b/Linkedin-Profile-Viewer/assets/69594258/e35178d5-1bf8-40ff-a7a8-37547ef0411f" alt="cookie.png" style="max-width:800px;">
+![cookie png](https://github.com/blizet/Profile-Viewer/assets/109814198/3420011c-ab4b-4f48-81ad-ab20133046a8)
+
 
 # End Points
 
