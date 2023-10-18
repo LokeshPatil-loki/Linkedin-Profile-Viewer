@@ -41,6 +41,10 @@ export async function getProfileTopCard(userHandle) {
   const reportData = includedData?.profileStatefulProfileActions?.overflowActions?.find(
     (item) => item.report != null
   );
+  const rootUrl = includedData.profilePicture?.displayImageReference?.vectorImage?.rootUrl;
+  const artifacts = includedData.profilePicture?.displayImageReference?.vectorImage?.artifacts;
+  const profilePicture = rootUrl+artifacts[artifacts.length-1]?.fileIdentifyingUrlPathSegment;
+
   const ProfileTopCard = {
     firstName: includedData.firstName,
     lastName: includedData.lastName,
@@ -48,6 +52,7 @@ export async function getProfileTopCard(userHandle) {
     publicIdentifier: includedData.publicIdentifier,
     url: `https://www.linkedin.com/in/${includedData.publicIdentifier}/`,
     authorProfileId: reportData.report?.authorProfileId,
+    profilePicture
   };
   return ProfileTopCard;
 }

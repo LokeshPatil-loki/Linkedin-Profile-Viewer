@@ -74,6 +74,7 @@ const profileSchema = new Schema({
     url: String,
     authorProfileId: String,
     about: String,
+    profilePicture:String,
     experiences: [experienceSchema],
     education: [educationSchema],
     certifications: [certificationSchema],
