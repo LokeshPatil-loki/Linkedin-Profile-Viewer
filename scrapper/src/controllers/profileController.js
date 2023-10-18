@@ -22,7 +22,7 @@ const getSingleProfile = async (req, res, next) => {
         let profile = null;
 
         // Find profile document by it's userHandle / publicIdentifier from database
-        let profileDoc = await ProfileModel.findOne({ publicIdentifier: userHandle });
+        let profileDoc = await ProfileModel.findOne({ publicIdentifier: profileIdentifier });
 
         // Check If we got a valid document or null / undefined 
         if (profileDoc) {
