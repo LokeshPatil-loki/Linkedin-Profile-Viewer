@@ -42,10 +42,8 @@ function ProfilePage() {
             })
             .catch(error => console.log('error', error));
     }, [])
-    if (!profileData) {
-        return <h1>404</h1>
-    }
-    return (
+
+    return profileData ? (
         <div className="bg-gray-100 p-44">
             <div id="modal-root"></div>
             <div className="bg-white shadow rounded-lg p-4 m-4">
@@ -101,7 +99,7 @@ function ProfilePage() {
 
         </div>
 
-    )
+    ):<h1>404</h1>
 }
 
 export default ProfilePage
