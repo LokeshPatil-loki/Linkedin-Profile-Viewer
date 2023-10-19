@@ -41,10 +41,14 @@ export async function getProfileTopCard(userHandle) {
   const reportData = includedData?.profileStatefulProfileActions?.overflowActions?.find(
     (item) => item.report != null
   );
-  const rootUrl = includedData.profilePicture?.displayImageReference?.vectorImage?.rootUrl;
-  const artifacts = includedData.profilePicture?.displayImageReference?.vectorImage?.artifacts;
-  const profilePicture = rootUrl+artifacts[artifacts.length-1]?.fileIdentifyingUrlPathSegment;
-
+ let profilePicture =  includedData.profilePicture.displayImageReference ? includedData.profilePicture.displayImageReference : includedData.profilePicture.displayImageWithFrameReferenceUnion;
+  const rootUrl = profilePicture?.vectorImage?.rootUrl;
+  const artifacts = profilePicture?.vectorImage?.artifacts;
+  console.log(includedData.profilePicture)
+  console.log(profilePicture,artifacts)
+  profilePicture = "";
+  
+  profilePicture = rootUrl+artifacts[artifacts?.length-1]?.fileIdentifyingUrlPathSeg
   const ProfileTopCard = {
     firstName: includedData.firstName,
     lastName: includedData.lastName,
