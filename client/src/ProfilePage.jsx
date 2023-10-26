@@ -43,6 +43,12 @@ function ProfilePage() {
             .catch(error => console.log('error', error));
     }, [])
 
+    if(!profileData){
+        return <div class="absolute right-1/2 bottom-1/2  transform translate-x-1/2 translate-y-1/2 ">
+        <div class="border-t-transparent border-solid animate-spin  rounded-full border-blue-400 border-4 h-16 w-16"></div>
+    </div>
+    }
+
     return profileData ? (
         <div className="bg-gray-100 p-44">
             <div id="modal-root"></div>
