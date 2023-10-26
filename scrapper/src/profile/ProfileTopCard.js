@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 
 dotenv.config();
+import fs from "fs";
 
 export async function getProfileTopCard(userHandle) {
   /**
@@ -41,14 +42,15 @@ export async function getProfileTopCard(userHandle) {
   const reportData = includedData?.profileStatefulProfileActions?.overflowActions?.find(
     (item) => item.report != null
   );
- let profilePicture =  includedData.profilePicture.displayImageReference ? includedData.profilePicture.displayImageReference : includedData.profilePicture.displayImageWithFrameReferenceUnion;
-  const rootUrl = profilePicture?.vectorImage?.rootUrl;
+ let profilePicture =  includedData?.profilePicture?.displayImageReference ? includedData?.profilePicture?.displayImageReference : includedData?.profilePicture?.displayImageWithFrameReferenceUnion;
+ const rootUrl = profilePicture?.vectorImage?.rootUrl;
   const artifacts = profilePicture?.vectorImage?.artifacts;
   console.log(includedData.profilePicture)
   console.log(profilePicture,artifacts)
   profilePicture = "";
   
-  profilePicture = rootUrl+artifacts[artifacts?.length-1]?.fileIdentifyingUrlPathSeg
+  if(rootUrl && artifacts)
+    profilePicture = rootUrl+artifacts?.[artifacts?.length-1]?.fileIdentifyingUrlPathSeg;
   const ProfileTopCard = {
     firstName: includedData.firstName,
     lastName: includedData.lastName,
