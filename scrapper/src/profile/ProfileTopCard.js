@@ -43,12 +43,13 @@ export async function getProfileTopCard(userHandle) {
     (item) => item.report != null
   );
  let profilePicture =  includedData?.profilePicture?.displayImageReference ? includedData?.profilePicture?.displayImageReference : includedData?.profilePicture?.displayImageWithFrameReferenceUnion;
- 
   const rootUrl = profilePicture?.vectorImage?.rootUrl;
+
   const artifacts = profilePicture?.vectorImage?.artifacts;
   profilePicture = "";
   if(rootUrl && artifacts)
     profilePicture = rootUrl+artifacts?.[artifacts?.length-1]?.fileIdentifyingUrlPathSegment;
+
   const ProfileTopCard = {
     firstName: includedData.firstName,
     lastName: includedData.lastName,
