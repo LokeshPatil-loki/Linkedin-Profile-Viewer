@@ -32,7 +32,6 @@ export async function getPosts(userHandle, authorProfileId, start = 0, count = 2
     let description = postElement?.commentary?.text?.text;
     let pastActivityOn = postElement?.actor?.subDescription?.text;
     let socialDetail = postElement?.["*socialDetail"].split(":");
-    console.log(socialDetail)
     const dashEntityUrn = postElement?.updateMetadata?.urn;
     const videoPlayMetadata = postElement?.content?.["*videoPlayMetadata"];
     const socialDetailEntity = responseJSON?.included?.find(element => element?.socialDetailEntityUrn?.includes(socialDetail[6]));

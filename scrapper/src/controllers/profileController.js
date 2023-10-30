@@ -20,7 +20,7 @@ const getSingleProfile = async (req, res, next) => {
         }
         let documentExists = false;
         let profile = null;
-
+        console.log(profileIdentifier)
         // Find profile document by it's userHandle / publicIdentifier from database
         let profileDoc = await ProfileModel.findOne({ publicIdentifier: profileIdentifier });
 
@@ -32,7 +32,7 @@ const getSingleProfile = async (req, res, next) => {
 
             // Calculate time difference between current time and last updated time of document
             const timeDifference = getHourDifference(now, updatedAt);
-
+            console.log(timeDifference)
             // IF time difference is more than 12 hour
             // Then scrape latest profile from linkedin and update document for that profile in mongodb
             if (timeDifference > 12) {

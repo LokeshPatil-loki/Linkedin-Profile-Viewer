@@ -24,7 +24,7 @@ function ProfilePage() {
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "url": query
+            "userHandle": query
         });
 
         var requestOptions = {
@@ -56,7 +56,7 @@ function ProfilePage() {
                 <div className="flex flex-col items-center">
                     <div className="w-20 h-20 rounded-full overflow-hidden">
                         <img
-                            src={profileData.profilePicture?.length > 0 ? profileData.profilePicture :"https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
+                            src={profileData.profilePicture?.length > 0 ? profileData.profilePicture : "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
                             alt="Profile Picture"
                             className="w-full h-full object-cover"
                         />
