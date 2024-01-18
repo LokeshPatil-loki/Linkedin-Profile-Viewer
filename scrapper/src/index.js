@@ -26,8 +26,8 @@ if (envErrors.length > 0) {
     try {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("connected to database");
-        app.listen(process.env.PORT, () => {
-            console.log(`Listening on port ${process.env.PORT}`);
+        app.listen(PORT, () => {
+            console.log(`Listening on port ${PORT}`);
         });
     } catch (error) {
         console.log(error);
